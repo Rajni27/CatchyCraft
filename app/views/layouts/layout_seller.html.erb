@@ -1,0 +1,78 @@
+<html>
+<head>
+  <title>CatchyCraft</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true%>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar">
+          <span class="icon-bar">
+          <span class="icon-bar">
+        </button>
+        
+        <div class="nav-collapse collapse">
+          <%= link_to 'CatchyCraft', root_path, :class => 'brand' %>
+        <div class="nav-collapse">
+	      <div class="pull-right ">					
+  	     <% if user_signed_in? %>
+  	       Logged in as <%= current_seller.email %> </b>
+          <%= link_to "Edit Profile", edit_seller_registration_path %>
+          <%= link_to 'Log Out', destroy_seller_session_path, :method => "delete" %>
+         <% else %>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field">
+              <%= f.label :email %>
+               <%= f.email_field :email, autofocus: true %>
+             </div>
+
+          <div class="field">
+           <%= f.label :password %>
+           <%= f.password_field :password, autocomplete: "off" %>
+         </div>
+
+         <% if devise_mapping.rememberable? -%>
+          <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+       <% end -%>
+
+       <div class="actions">
+         <%= f.submit "Log in" %>
+      </div>
+      <% end %>
+
+    	    </div>
+      </div>
+	  </div>
+	</div>
+</div>
+</div>
+<div class = "container">
+	<div class="row">
+
+	<% if flash.notice %>
+  		<div class="alert alert-block alert-info">
+    	 <button type="button" class="close" data-dismiss="alert">×
+    	 <%= flash.notice %>
+  		</div>
+	<% end %>
+	<% if flash.alert %>
+  		<div class="alert alert-block alert-error">
+    		<button type="button" class="close" data-dismiss="alert">×
+    		<%= flash.alert %>
+  		</div>
+	<% end %>				
+	</div>
+</div>
+<div class="main">
+<%= yield %>
+</div>
+
+</body>
+</html>
